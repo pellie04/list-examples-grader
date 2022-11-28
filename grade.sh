@@ -1,7 +1,7 @@
 # Create your grading script here
 
 
-CPATH=".:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar"
+
 #SCORE= 0
 rm -rf student-submission
 rm ListExamples.java
@@ -15,10 +15,24 @@ then
 echo "File found"
 
 else
-echo "Wrong file or file missing."
+echo "Wrong file or file missing. 0/5"
 
 fi
 javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java 
-java -cp .:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore TestListExamples > testout.txt
+if [ $? -eq 0 ]
+then
+echo ""
+else 
+echo "Could not compile correctly. 1/5"
+exit
+fi
 
+java -cp .:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore TestListExamples > testout.txt
+if [ $? -eq 0 ]
+then
+echo "Full test passed, 5/5"
+else    
 cat testout.txt
+echo "Some tests failed, see above for details"
+exit
+fi
