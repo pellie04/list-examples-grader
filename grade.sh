@@ -3,9 +3,10 @@
 
 
 #SCORE= 0
-rm -rf student-submission
+rm -rf student-submission 
+
 rm ListExamples.java
-git clone $1 student-submission
+git clone $1 student-submission 
 
 cd student-submission
 cp ListExamples.java ../
@@ -18,7 +19,11 @@ else
 echo "Wrong file or file missing. 0/5"
 
 fi
-javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java 
+javac -cp .:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar *.java 2> err.txt 1> stdout.txt 2> stderr.txt
+echo $?
+cat stdout.txt
+cat stderr.txt
+echo "done"
 if [ $? -eq 0 ]
 then
 echo ""
